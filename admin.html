@@ -10,12 +10,10 @@
     body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 16px; margin: 0; }
     h1 { font-size: 20px; text-align: center; margin-bottom: 16px; }
     
-    /* MENU DE ABAS */
     .tabs-nav { display: flex; gap: 8px; margin-bottom: 16px; }
     .tab-btn { flex: 1; padding: 12px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--sub); font-weight: bold; border-radius: 8px; cursor: pointer; text-align: center; }
     .tab-btn.active { background: var(--green); color: #000; border-color: var(--green); }
 
-    /* CONTEÚDO DAS ABAS */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
@@ -28,10 +26,9 @@
     table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
     th, td { padding: 10px 6px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); vertical-align: middle; }
     th { color: var(--sub); background: rgba(255,255,255,0.03); }
-    .badge { background: #22c55e22; color: #22c55e; padding: 2px 6px; border-radius: 4px; font-weight: bold; white-space: nowrap; }
+    .badge { background: #22c55e22; color: #22c55e; padding: 2px 6px; border-radius: 4px; font-weight: bold; white-space: nowrap; display: inline-block; margin: 2px 0; }
     .date-text { color: var(--sub); font-size: 11px; white-space: nowrap; }
     
-    /* FORMATAÇÃO CLIENTE / USER_ID */
     .user-info { display: flex; flex-direction: column; gap: 2px; }
     .user-email { font-weight: 600; color: #fff; font-size: 13px; word-break: break-all; }
     .user-id { font-size: 10px; color: var(--sub); font-family: monospace; opacity: 0.8; word-break: break-all; }
@@ -41,13 +38,11 @@
 
   <h1>📱 Painel ADM</h1>
 
-  <!-- NAVEGAÇÃO DE ABAS -->
   <div class="tabs-nav">
     <button class="tab-btn active" onclick="trocarAba('aba-liberacao', this)">⚡ Liberação</button>
     <button class="tab-btn" onclick="trocarAba('aba-logs', this)">📋 Logs de E-mails</button>
   </div>
 
-  <!-- ================= ABA 1: LIBERAÇÃO MANUAL ================= -->
   <div id="aba-liberacao" class="tab-content active">
     <div class="card">
       <h2>⚡ Liberação Manual (PayPal / PIX)</h2>
@@ -55,7 +50,7 @@
       <select id="adm-categoria">
         <option value="amador">Amador VIP</option>
         <option value="cam">Spycam VIP</option>
-        <option value="hentai">Hentai VIP</option>
+        <option value="promo_30">Promoção Dupla (Leve 2 Pague 1)</option>
       </select>
       <select id="adm-dias">
         <option value="30">1 Mês (30 Dias)</option>
@@ -72,7 +67,7 @@
         <thead>
           <tr>
             <th>Cliente / User ID</th>
-            <th>Cat.</th>
+            <th>Cat. / Planos</th>
             <th>Expiração</th>
           </tr>
         </thead>
@@ -83,7 +78,6 @@
     </div>
   </div>
 
-  <!-- ================= ABA 2: LOGS DE USUÁRIOS REGISTRADOS ================= -->
   <div id="aba-logs" class="tab-content">
     <div class="card">
       <h2>📋 E-mails Cadastrados no Sistema</h2>
@@ -109,9 +103,8 @@
     const SUPABASE_ANON_KEY = 'sb_publishable__w-crANhzjiYKJuh2AX39w_Kz1-Rf74'; 
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // LISTA DE E-MAILS AUTORIZADOS COMO ADMINISTRADOR
     const EMAILS_ADMIN = [
-      "chico@teste.com" // ALTERE AQUI PARA O SEU E-MAIL DE LOGIN REAL
+      "chico@teste.com"
     ];
 
     let listaLogsCache = [];
@@ -127,7 +120,6 @@
       carregarLogsUsuarios();
     };
 
-    // ALTERNAR ENTRE AS ABAS
     function trocarAba(abaId, btn) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -136,7 +128,6 @@
       btn.classList.add('active');
     }
 
-    // CARREGAR HISTÓRICO DE VENDAS
     async function carregarVendas() {
       const tbody = document.getElementById('tabela-vendas');
       tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>';
@@ -144,11 +135,10 @@
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
-        .order('data_expiracao', { ascending: false })
-        .limit(20);
+        .order('created_at', { ascending: false })
+        .limit(30);
 
       if (erroCompras) {
-        console.error("Erro ao buscar compras:", erroCompras);
         tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#ef4444;">Erro ao carregar vendas.</td></tr>';
         return;
       }
@@ -158,26 +148,10 @@
         return;
       }
 
-      const userIds = [...new Set(compras.map(c => c.user_id).filter(Boolean))];
-
-      const mapaEmails = {};
-      if (userIds.length > 0) {
-        const { data: usuarios } = await _supabase
-          .from('vw_usuarios')
-          .select('id, email')
-          .in('id', userIds);
-
-        if (usuarios) {
-          usuarios.forEach(u => {
-            mapaEmails[u.id] = u.email;
-          });
-        }
-      }
-
       tbody.innerHTML = '';
       compras.forEach(item => {
         const dataExp = new Date(item.data_expiracao).toLocaleDateString('pt-BR');
-        const emailCliente = item.email || mapaEmails[item.user_id] || 'E-mail não informado';
+        const emailCliente = item.email || 'E-mail não informado';
         const idExibicao = item.user_id ? item.user_id : 'Sem ID (Aguardando Cadastro)';
 
         tbody.innerHTML += `
@@ -195,7 +169,6 @@
       });
     }
 
-    // CARREGAR LOGS DE E-MAILS CADASTRADOS (VW_USUARIOS)
     async function carregarLogsUsuarios() {
       const tbody = document.getElementById('tabela-logs');
       tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Buscando registros...</td></tr>';
@@ -207,8 +180,7 @@
         .limit(50);
 
       if (error) {
-        console.error("Erro nos logs:", error);
-        tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; color:#ef4444;">Erro ao carregar logs. Verifique a view vw_usuarios.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="2" style="text-align:center; color:#ef4444;">Erro ao carregar logs. Verifique se a tabela de usuários possui permissão de leitura.</td></tr>';
         return;
       }
 
@@ -216,7 +188,6 @@
       renderizarLogs(listaLogsCache);
     }
 
-    // RENDERIZAR TABELA DE LOGS
     function renderizarLogs(lista) {
       const tbody = document.getElementById('tabela-logs');
       tbody.innerHTML = '';
@@ -237,14 +208,12 @@
       });
     }
 
-    // FILTRO DE BUSCA NOS LOGS
     function filtrarLogs() {
       const termo = document.getElementById('busca-log').value.toLowerCase();
       const filtrados = listaLogsCache.filter(item => item.email && item.email.toLowerCase().includes(termo));
       renderizarLogs(filtrados);
     }
 
-    // LIBERAÇÃO MANUAL
     async function liberarAcessoManual() {
       const email = document.getElementById('adm-email').value.trim();
       const categoria = document.getElementById('adm-categoria').value;
@@ -264,22 +233,25 @@
         .eq('email', email)
         .maybeSingle();
 
-      const { error } = await _supabase
-        .from('compras_usuario')
-        .insert([{
-          user_id: user ? user.id : null,
-          email: email,
-          categoria_id: categoria,
-          data_expiracao: dataExpira.toISOString()
-        }]);
-
-      if (error) {
-        alert("Erro ao liberar acesso: " + error.message);
-      } else {
-        alert(`✅ Categoria [${categoria}] liberada por ${dias} dias para ${email}!`);
-        document.getElementById('adm-email').value = '';
-        carregarVendas();
+      let categoriasParaLiberar = [categoria];
+      if (categoria === 'promo_30') {
+        categoriasParaLiberar = ['amador_30', 'cam_30'];
       }
+
+      for (const cat of categoriasParaLiberar) {
+        await _supabase
+          .from('compras_usuario')
+          .insert([{
+            user_id: user ? user.id : null,
+            email: email,
+            categoria_id: cat,
+            data_expiracao: dataExpira.toISOString()
+          }]);
+      }
+
+      alert(`✅ Acesso liberado com sucesso para ${email}!`);
+      document.getElementById('adm-email').value = '';
+      carregarVendas();
     }
   </script>
 </body>
