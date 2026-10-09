@@ -135,7 +135,7 @@
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
         .limit(30);
 
       if (erroCompras) {
