@@ -214,9 +214,10 @@
       renderizarLogs(filtrados);
     }
 
+    // LIBERAÇÃO MANUAL USANDO EXATAMENTE A MESMA FUNÇÃO RPC DO SUPABASE (IGUAL AO AUTOMÁTICO)
     async function liberarAcessoManual() {
       const email = document.getElementById('adm-email').value.trim().toLowerCase();
-      const categoria = document.getElementById('adm-categoria').value;
+      const categoriaSelecionada = document.getElementById('adm-categoria').value;
       const dias = parseInt(document.getElementById('adm-dias').value);
 
       if (!email) {
@@ -224,36 +225,35 @@
         return;
       }
 
-      const dataExpira = new Date();
-      dataExpira.setDate(dataExpira.getDate() + dias);
-
-      const { data: user } = await _supabase
-        .from('vw_usuarios')
-        .select('id')
-        .eq('email', email)
-        .maybeSingle();
-
-      let categoriasParaLiberar = [categoria];
-      if (categoria === 'promo_30') {
+      let categoriasParaLiberar = [];
+      if (categoriaSelecionada === 'promo_30') {
         categoriasParaLiberar = [`amador_${dias}`, `cam_${dias}`];
       } else {
-        categoriasParaLiberar = [`${categoria}_${dias}`];
+        categoriasParaLiberar = [`${categoriaSelecionada}_${dias}`];
       }
 
-      for (const cat of categoriasParaLiberar) {
-        await _supabase
-          .from('compras_usuario')
-          .insert([{
-            user_id: user ? user.id : null,
-            email: email,
-            categoria_id: cat,
-            data_expiracao: dataExpira.toISOString()
-          }]);
+      let errosOcorridos = [];
+
+      for (const catId of categoriasParaLiberar) {
+        // Chama a stored procedure 'liberar_categoria_pix' do Supabase (mesma usada pelo Webhook)
+        const { error } = await _supabase.rpc('liberar_categoria_pix', {
+          p_email: email,
+          p_categoria_id: catId,
+          p_dias: dias
+        });
+
+        if (error) {
+          errosOcorridos.push(error.message);
+        }
       }
 
-      alert(`✅ Acesso liberado com sucesso para ${email}!`);
-      document.getElementById('adm-email').value = '';
-      carregarVendas();
+      if (errosOcorridos.length > 0) {
+        alert("Erro ao liberar acesso: " + errosOcorridos.join(', '));
+      } else {
+        alert(`✅ Acesso liberado com sucesso para ${email} (${categoriasParaLiberar.join(', ')})!`);
+        document.getElementById('adm-email').value = '';
+        carregarVendas();
+      }
     }
   </script>
 </body>
