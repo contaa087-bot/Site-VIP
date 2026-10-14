@@ -215,7 +215,7 @@
     }
 
     async function liberarAcessoManual() {
-      const email = document.getElementById('adm-email').value.trim();
+      const email = document.getElementById('adm-email').value.trim().toLowerCase();
       const categoria = document.getElementById('adm-categoria').value;
       const dias = parseInt(document.getElementById('adm-dias').value);
 
@@ -235,7 +235,9 @@
 
       let categoriasParaLiberar = [categoria];
       if (categoria === 'promo_30') {
-        categoriasParaLiberar = ['amador_30', 'cam_30'];
+        categoriasParaLiberar = [`amador_${dias}`, `cam_${dias}`];
+      } else {
+        categoriasParaLiberar = [`${categoria}_${dias}`];
       }
 
       for (const cat of categoriasParaLiberar) {
