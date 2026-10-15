@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Famosinhas VIP ✨</title>
+  <link rel="stylesheet" href="estilo-telegram.css">
+
+  <style>
+    :root {
+      --bg-deep: #060910;
+      --card-bg: #10161f;
+      --yellow-pix: #eab308;
+      --yellow-neon: #facc15;
+      --border-neon: rgba(234, 179, 8, 0.35);
+      --text-main: #f9fafb;
+      --text-sub: #9ca3af;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-main);
+      margin: 0;
+      padding: 0;
+    }
+
+    .telegram-feed {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header-page {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-neon);
+      padding: 16px 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-page h2 {
+      font-size: 20px;
+      font-weight: 900;
+      color: #facc15;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-voltar {
+      background: rgba(234, 179, 8, 0.15);
+      color: #facc15;
+      border: 1px solid var(--border-neon);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .btn-voltar:hover {
+      background: rgba(234, 179, 8, 0.3);
+    }
+
+    /* GRID RESPONSIVO */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 6px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARD INDIVIDUAL ESTILO NETFLIX */
+    .media-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-neon);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .media-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(234, 179, 8, 0.7);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #000;
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* FOTOS DA GALERIA VIP */
+    .media-card img.foto-galeria {
+      width: 100%;
+      height: auto;
+      max-height: 500px;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #000000;
+      border: 1px solid #facc15;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+    }
+  </style>
+
+  <!-- CARREGA A BIBLIOTECA DO SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <main class="telegram-feed">
+    <div class="header-page">
+      <h2>✨ Famosinhas VIP ✨</h2>
+      <a href="index.html" class="btn-voltar">← Início</a>
+    </div>
+
+    <!-- CABEÇALHO DA SEÇÃO -->
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+      <button class="tab-btn">🔥 Packs Vazados</button>
+    </div>
+
+    <!-- CONTAINER DE CONTEÚDO LIBERADO -->
+    <div id="conteudo-liberado">
+      <div id="feed-container" class="video-grid"></div>
+      <div id="pagination-controls" class="pagination-container"></div>
+    </div>
+
+    <!-- MENSAGEM CASO O USUÁRIO NÃO TENHA ACESSO -->
+    <div id="conteudo-bloqueado" style="display: none; text-align: center; color: #fff; padding: 60px 20px; background: var(--card-bg); border: 1px solid var(--border-neon); border-radius: 20px; margin-top: 20px;">
+      <h3 style="font-size: 22px; color: #facc15; margin-bottom: 10px;">🔒 Conteúdo Exclusivo VIP Famosinhas</h3>
+      <p style="margin: 0 0 24px; color: var(--text-sub);">Você precisa adquirir o acesso para visualizar esta galeria privativa.</p>
+      <a href="index.html#card-famosinhas" class="tab-btn" style="text-decoration: none; display: inline-block; padding: 14px 28px; font-size: 15px;">Adquirir Acesso (R$ 15,61)</a>
+    </div>
+  </main>
+
+  <!-- ARQUIVOS DE MÍDIA DO VIP FAMOSINHAS -->
+  <script src="links-famosinhas-vazados.js"></script>
+
+  <!-- DEFINE A CATEGORIA CORRETA ANTES DO APP.JS -->
+  <script>
+    window.categoriaId = 'famosinhas';
+  </script>
+
+  <!-- CARREGA O APP.JS COM SUPABASE -->
+  <script src="app.js"></script>
+
+  <!-- NAVEGAÇÃO E EXIBIÇÃO DOS VÍDEOS/FOTOS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const listaVazados = window.linksFamosinhasVazados || [];
+      let paginaAtual = 1;
+      const ITENS_POR_PAGINA = 10;
+
+      function removerAutoplay(url) {
+        if (typeof url !== 'string') return url;
+        let urlLimpa = url.replace(/([?&])autoplay=true/g, '');
+        urlLimpa = urlLimpa.replace(/([?&])autoplay=1/g, '');
+        if (urlLimpa.includes('?')) {
+          urlLimpa += '&autoplay=false';
+        } else {
+          urlLimpa += '?autoplay=false';
+        }
+        return urlLimpa;
+      }
+
+      function renderizarFeed() {
+        const container = document.getElementById('feed-container');
+        const paginationControls = document.getElementById('pagination-controls');
+
+        if (!container) return;
+
+        if (listaVazados.length === 0) {
+          container.innerHTML = '<p style="text-align:center; color:#9ca3af; padding: 30px; grid-column: 1/-1;">Nenhum conteúdo cadastrado nesta aba ainda.</p>';
+          if (paginationControls) paginationControls.innerHTML = '';
+          return;
+        }
+
+        const totalPaginas = Math.ceil(listaVazados.length / ITENS_POR_PAGINA);
+        const inicio = (paginaAtual - 1) * ITENS_POR_PAGINA;
+        const fim = inicio + ITENS_POR_PAGINA;
+        const itensPagina = listaVazados.slice(inicio, fim);
+
+        container.innerHTML = itensPagina.map(url => {
+          if (typeof url === 'string' && url.match(/\.(jpeg|jpg|gif|png|webp)($|\?)/i)) {
+            return `
+              <div class="media-card">
+                <img src="${url}" class="foto-galeria" loading="lazy" alt="Conteúdo Famosinhas VIP" />
+              </div>
+            `;
+          } else {
+            const urlSemPlay = removerAutoplay(url);
+            return `
+              <div class="media-card">
+                <div class="video-wrapper">
+                  <iframe src="${urlSemPlay}" loading="lazy" allow="accelerometer; gyroscope; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            `;
+          }
+        }).join('');
+
+        if (paginationControls && totalPaginas > 1) {
+          let btnHTML = `<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 25px 0;">`;
+          if (paginaAtual > 1) {
+            btnHTML += `<button class="tab-btn" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual - 1})">← Anterior</button>`;
+          }
+          btnHTML += `<span style="color:#fff; font-weight:bold; font-size:13px;">Página ${paginaAtual} de ${totalPaginas}</span>`;
+          if (paginaAtual < totalPaginas) {
+            btnHTML += `<button class="tab-btn" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual + 1})">Próxima →</button>`;
+          }
+          btnHTML += `</div>`;
+          paginationControls.innerHTML = btnHTML;
+        } else if (paginationControls) {
+          paginationControls.innerHTML = '';
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      window.mudarPagina = function(novaPagina) {
+        paginaAtual = novaPagina;
+        renderizarFeed();
+      };
+
+      renderizarFeed();
+    });
+  </script>
+</body>
+</html>
