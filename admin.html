@@ -50,6 +50,7 @@
       <select id="adm-categoria">
         <option value="amador">Amador VIP</option>
         <option value="cam">Spycam VIP</option>
+        <option value="famosinhas">Famosinhas VIP ✨</option>
         <option value="promo_30">Promoção Dupla (Leve 2 Pague 1)</option>
       </select>
       <select id="adm-dias">
@@ -214,7 +215,6 @@
       renderizarLogs(filtrados);
     }
 
-    // LIBERAÇÃO MANUAL USANDO EXATAMENTE A MESMA FUNÇÃO RPC DO SUPABASE (IGUAL AO AUTOMÁTICO)
     async function liberarAcessoManual() {
       const email = document.getElementById('adm-email').value.trim().toLowerCase();
       const categoriaSelecionada = document.getElementById('adm-categoria').value;
@@ -235,7 +235,6 @@
       let errosOcorridos = [];
 
       for (const catId of categoriasParaLiberar) {
-        // Chama a stored procedure 'liberar_categoria_pix' do Supabase (mesma usada pelo Webhook)
         const { error } = await _supabase.rpc('liberar_categoria_pix', {
           p_email: email,
           p_categoria_id: catId,
