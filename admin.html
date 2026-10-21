@@ -206,11 +206,11 @@
       const tbody = document.getElementById('tabela-vendas');
       tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>';
 
-      // Corrigido para ordenar por id em ordem decrescente (mais recentes primeiro)
+      // Ordena por data_expiracao do maior para o menor (vendas mais recentes/com mais tempo no topo)
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
-        .order('id', { ascending: false })
+        .order('data_expiracao', { ascending: false })
         .limit(50);
 
       if (erroCompras) {
