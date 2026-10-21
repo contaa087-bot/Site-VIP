@@ -206,11 +206,11 @@
       const tbody = document.getElementById('tabela-vendas');
       tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>';
 
-      // Ordena por data_expiracao do maior para o menor (vendas mais recentes/com mais tempo no topo)
+      // Ordenação exata pela coluna real do seu banco: data_compra (do mais recente para o mais antigo)
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
-        .order('data_expiracao', { ascending: false })
+        .order('data_compra', { ascending: false })
         .limit(50);
 
       if (erroCompras) {
