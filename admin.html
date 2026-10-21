@@ -175,6 +175,8 @@
     }
 
     function calcularTempoRestante(dataExpiracaoStr) {
+      if (!dataExpiracaoStr) return '<span class="expired-text">Sem Data</span>';
+      
       const agora = new Date();
       const expira = new Date(dataExpiracaoStr);
       const diferencaMs = expira - agora;
@@ -204,13 +206,15 @@
       const tbody = document.getElementById('tabela-vendas');
       tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>';
 
+      // Corrigido para ordenar por id em ordem decrescente (mais recentes primeiro)
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
-        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
         .limit(50);
 
       if (erroCompras) {
+        console.error("Erro Supabase:", erroCompras);
         tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#ef4444;">Erro ao carregar vendas.</td></tr>';
         return;
       }
@@ -257,6 +261,7 @@
       let countCam = 0;
 
       data.forEach(item => {
+        if (!item.categoria_id) return;
         const cat = item.categoria_id.toLowerCase();
         if (cat.includes('famosinhas')) countFamosinhas++;
         if (cat.includes('amador')) countAmador++;
