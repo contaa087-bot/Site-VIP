@@ -84,6 +84,54 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* BARRA DE AVISO FIXA NO TOPO */
+    .top-notice-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: linear-gradient(135deg, #181f2e 0%, #0d121c 100%);
+      border-bottom: 2px solid var(--yellow-pix);
+      padding: 10px 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .top-notice-content {
+      font-size: 12px;
+      color: #e5e7eb;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .top-notice-content b {
+      color: var(--yellow-neon);
+    }
+
+    .btn-faq-jump {
+      background: rgba(234, 179, 8, 0.15);
+      color: var(--yellow-neon);
+      border: 1px solid var(--border-neon);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-faq-jump:hover {
+      background: rgba(234, 179, 8, 0.3);
+    }
+
     .particles-bg {
       position: fixed;
       inset: 0;
@@ -114,7 +162,7 @@
       border-bottom: 1px solid var(--border-neon);
       padding: 12px 16px;
       position: sticky;
-      top: 0;
+      top: 45px; /* Ajustado para ficar logo abaixo da barra de aviso fixa */
       z-index: 90;
       transform: translateZ(0);
     }
@@ -747,9 +795,53 @@
       margin-top: 2px;
     }
 
+    /* FAQ / PERGUNTAS FREQUENTES */
+    .faq-section {
+      margin-top: 44px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-neon);
+      border-radius: 22px;
+      padding: 26px 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    .faq-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: #060910;
+      border: 1px solid rgba(234, 179, 8, 0.18);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .faq-q {
+      font-size: 13px;
+      font-weight: 800;
+      color: #facc15;
+      margin-bottom: 6px;
+    }
+
+    .faq-a {
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+
     /* REVIEWS */
     .reviews-section {
-      margin-top: 44px;
+      margin-top: 30px;
       background: var(--card-bg);
       border: 1px solid var(--border-neon);
       border-radius: 22px;
@@ -967,6 +1059,15 @@
   </style>
 </head>
 <body>
+
+  <!-- BARRA DE AVISO FIXA NO TOPO -->
+  <div class="top-notice-bar">
+    <div class="top-notice-content">
+      <span>⚠️</span>
+      <span>Os vídeos rodam <b>direto no site</b> (não são grupos de Telegram) e são conteúdos exclusivos!</span>
+    </div>
+    <a href="#faq-section" class="btn-faq-jump">❓ Dúvidas / FAQ</a>
+  </div>
 
   <!-- PARTÍCULAS -->
   <div class="particles-bg" id="particlesBg"></div>
@@ -1431,6 +1532,25 @@
             <span class="review-stars">★★★★★</span>
           </div>
           <div class="review-text">Qualidade dos vídeos é impressionante e roda direto sem travar. Recomendo!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEÇÃO DE PERGUNTAS FREQUENTES (FAQ) -->
+    <div class="faq-section" id="faq-section">
+      <div class="faq-title">❓ Perguntas Frequentes (FAQ)</div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q">Os vídeos são em grupos de Telegram?</div>
+          <div class="faq-a">Não! Todo o conteúdo é assistido diretamente aqui no site através de um player de alta velocidade, sem travamentos e sem precisar entrar em grupos.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">O conteúdo é o mesmo do Telegram?</div>
+          <div class="faq-a">Não. As galerias do site possuem acervos exclusivos, mídias pesadas e conteúdos diferenciados que não são publicados em canais abertos.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Como é feito o acesso após o pagamento?</div>
+          <div class="faq-a">A liberação é totalmente automática via PIX logo após a confirmação do pagamento. O acesso é vinculado diretamente à sua conta cadastrada.</div>
         </div>
       </div>
     </div>
