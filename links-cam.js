@@ -9,7 +9,6 @@ window.linksCam = [
   "https://iframe.mediadelivery.net/embed/756775/fa285b5f-2199-4537-aed7-8a40ec0ce57c",
   "https://iframe.mediadelivery.net/embed/756775/ffc65ccf-e2b2-4e14-969c-6a97804309d2",
   "https://iframe.mediadelivery.net/embed/756775/90fa3850-98e1-4741-8940-3c25588a7b78",
-  "https://iframe.mediadelivery.net/embed/756775/925ff627-08c3-4221-b9b2-20e09ce2e98d",
   "https://iframe.mediadelivery.net/embed/756775/6bb0998e-f100-41b6-a753-8f475df14783",
   "https://iframe.mediadelivery.net/embed/756775/eafa638a-48b5-477c-975f-48ce1783f81e",
   "https://iframe.mediadelivery.net/embed/756775/708fc28e-8095-489e-adac-000387600cef",
