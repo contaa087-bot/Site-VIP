@@ -477,6 +477,7 @@
     }
 
     .video-item {
+      position: relative;
       flex: 0 0 170px;
       scroll-snap-align: start;
       background: #111;
@@ -498,6 +499,31 @@
       display: block;
       background: #000;
       object-fit: cover;
+    }
+
+    /* BOTÃO DE TELA CHEIA FLUTUANTE NO VÍDEO */
+    .btn-fullscreen-overlay {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #facc15;
+      border: 1px solid rgba(234, 179, 8, 0.5);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      transition: background 0.2s;
+    }
+    .btn-fullscreen-overlay:hover {
+      background: rgba(234, 179, 8, 0.25);
     }
 
     /* BENEFÍCIOS */
@@ -1109,6 +1135,7 @@
           <source src="videos/demo.mp4" type="video/mp4">
           Seu navegador não suporta vídeos HTML5.
         </video>
+        <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
       </div>
     </div>
 
@@ -1136,31 +1163,37 @@
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-1.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-2.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-3.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-4.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-5.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/amador-6.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
             </div>
           </div>
@@ -1258,31 +1291,37 @@
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-1.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-2.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-3.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-4.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-5.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/cam-6.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
             </div>
           </div>
@@ -1343,31 +1382,37 @@
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-1.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-2.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-3.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-4.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-5.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
               <div class="video-item">
                 <video controls preload="metadata" playsinline loop muted>
                   <source src="videos/famosinhas-6.mp4" type="video/mp4">
                 </video>
+                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
               </div>
             </div>
           </div>
@@ -1657,6 +1702,45 @@
   </div>
 
   <script src="links-cam.js"></script>
+
+  <!-- SCRIPT DE TELA CHEIA (BOTÃO DIRETO NA TELA + DUPLO TOQUE) -->
+  <script>
+    function toggleFullscreen(button) {
+      const videoWrapper = button.parentElement;
+      const video = videoWrapper.querySelector("video");
+      
+      if (!video) return;
+
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (video.requestFullscreen) {
+          video.requestFullscreen();
+        } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const videos = document.querySelectorAll("video");
+      videos.forEach(video => {
+        video.addEventListener("dblclick", () => {
+          if (video.requestFullscreen) {
+            video.requestFullscreen();
+          } else if (video.webkitRequestFullscreen) {
+            video.webkitRequestFullscreen();
+          }
+        });
+      });
+    });
+  </script>
 
   <!-- SCRIPT SOCIAL PROOF -->
   <script>
