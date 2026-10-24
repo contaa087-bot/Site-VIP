@@ -137,6 +137,62 @@
       border-color: #facc15;
       box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
     }
+
+    /* ESTILO DA PAGINAÇÃO NUMÉRICA */
+    .pagination-bar {
+      display: inline-flex;
+      align-items: center;
+      background: #141a24;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 30px auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .pagination-btn {
+      background: transparent;
+      border: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      color: #9ca3af;
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pagination-btn:last-child {
+      border-right: none;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+
+    .pagination-btn.active {
+      background: #202938;
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: inset 0 -2px 0 0 #facc15;
+    }
+
+    .pagination-btn:disabled {
+      color: #4b5563;
+      cursor: not-allowed;
+    }
+
+    .pagination-dots {
+      padding: 10px 12px;
+      color: #6b7280;
+      font-size: 13px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      user-select: none;
+    }
   </style>
 
   <!-- CARREGA A BIBLIOTECA DO SUPABASE -->
@@ -159,7 +215,7 @@
     <!-- CONTAINER DE CONTEÚDO LIBERADO (OCULTO POR PADRÃO PARA SEGURANÇA) -->
     <div id="conteudo-liberado" style="display: none;">
       <div id="feed-container" class="video-grid"></div>
-      <div id="pagination-controls" class="pagination-container"></div>
+      <div id="pagination-controls" style="text-align: center;"></div>
     </div>
 
     <!-- MENSAGEM CASO O USUÁRIO NÃO TENHA ACESSO -->
@@ -209,6 +265,42 @@
         return urlLimpa;
       }
 
+      function renderizarPaginacao(totalPaginas) {
+        if (totalPaginas <= 1) return '';
+
+        let html = '<div class="pagination-bar">';
+
+        // Botão Previous
+        html += `<button class="pagination-btn" ${paginaAtual === 1 ? 'disabled' : ''} onclick="mudarPagina(${paginaAtual - 1})">Previous</button>`;
+
+        let paginas = [];
+        if (totalPaginas <= 6) {
+          for (let i = 1; i <= totalPaginas; i++) paginas.push(i);
+        } else {
+          if (paginaAtual <= 3) {
+            paginas = [1, 2, 3, 4, '...', totalPaginas];
+          } else if (paginaAtual >= totalPaginas - 2) {
+            paginas = [1, '...', totalPaginas - 3, totalPaginas - 2, totalPaginas - 1, totalPaginas];
+          } else {
+            paginas = [1, '...', paginaAtual - 1, paginaAtual, paginaAtual + 1, '...', totalPaginas];
+          }
+        }
+
+        paginas.forEach(p => {
+          if (p === '...') {
+            html += `<span class="pagination-dots">...</span>`;
+          } else {
+            html += `<button class="pagination-btn ${p === paginaAtual ? 'active' : ''}" onclick="mudarPagina(${p})">${p}</button>`;
+          }
+        });
+
+        // Botão Next
+        html += `<button class="pagination-btn" ${paginaAtual === totalPaginas ? 'disabled' : ''} onclick="mudarPagina(${paginaAtual + 1})">Next</button>`;
+
+        html += '</div>';
+        return html;
+      }
+
       function renderizarFeed() {
         const container = document.getElementById('feed-container');
         const paginationControls = document.getElementById('pagination-controls');
@@ -247,19 +339,8 @@
           }
         }).join('');
 
-        if (paginationControls && totalPaginas > 1) {
-          let btnHTML = `<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 25px 0;">`;
-          if (paginaAtual > 1) {
-            btnHTML += `<button class="tab-btn active" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual - 1})">← Anterior</button>`;
-          }
-          btnHTML += `<span style="color:#fff; font-weight:bold; font-size:13px;">Página ${paginaAtual} de ${totalPaginas}</span>`;
-          if (paginaAtual < totalPaginas) {
-            btnHTML += `<button class="tab-btn active" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual + 1})">Próxima →</button>`;
-          }
-          btnHTML += `</div>`;
-          paginationControls.innerHTML = btnHTML;
-        } else if (paginationControls) {
-          paginationControls.innerHTML = '';
+        if (paginationControls) {
+          paginationControls.innerHTML = renderizarPaginacao(totalPaginas);
         }
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
