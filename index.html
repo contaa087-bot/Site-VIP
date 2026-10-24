@@ -1703,8 +1703,10 @@
 
   <script src="links-cam.js"></script>
 
-  <!-- SCRIPT DE TELA CHEIA (BOTÃO DIRETO NA TELA + DUPLO TOQUE) -->
+  <!-- SCRIPT DE TELA CHEIA (COM CORREÇÃO DE SCROLL AO SAIR DA TELA CHEIA) -->
   <script>
+    let scrollPosicaoAntesFullscreen = 0;
+
     function toggleFullscreen(button) {
       const videoWrapper = button.parentElement;
       const video = videoWrapper.querySelector("video");
@@ -1712,6 +1714,9 @@
       if (!video) return;
 
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        // Salva a posição exata de rolagem antes de abrir a tela cheia
+        scrollPosicaoAntesFullscreen = window.scrollY || document.documentElement.scrollTop;
+
         if (video.requestFullscreen) {
           video.requestFullscreen();
         } else if (video.webkitRequestFullscreen) {
@@ -1728,10 +1733,27 @@
       }
     }
 
+    // Restaura a rolagem assim que o navegador sai da tela cheia
+    function restaurarPosicaoScroll() {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: scrollPosicaoAntesFullscreen,
+            behavior: 'instant'
+          });
+        }, 50);
+      }
+    }
+
+    document.addEventListener("fullscreenchange", restaurarPosicaoScroll);
+    document.addEventListener("webkitfullscreenchange", restaurarPosicaoScroll);
+
     document.addEventListener("DOMContentLoaded", () => {
       const videos = document.querySelectorAll("video");
       videos.forEach(video => {
         video.addEventListener("dblclick", () => {
+          scrollPosicaoAntesFullscreen = window.scrollY || document.documentElement.scrollTop;
+          
           if (video.requestFullscreen) {
             video.requestFullscreen();
           } else if (video.webkitRequestFullscreen) {
