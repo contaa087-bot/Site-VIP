@@ -4,7 +4,6 @@ window.linksFamosinhasFamosinhas = [
   "https://iframe.mediadelivery.net/embed/756775/7a1b354c-6e63-4c17-a703-194ed53697d0",
   "https://iframe.mediadelivery.net/embed/756775/409e746d-ec00-4a87-8cf7-975dfa156254",
   "https://iframe.mediadelivery.net/embed/756775/dd82587c-692a-42b4-ba77-caaf6babef73",
-  "https://iframe.mediadelivery.net/embed/756775/03ce9416-1d64-4355-bb95-335b2f61f3f6",
   "https://iframe.mediadelivery.net/embed/756775/db27ab18-bab0-4224-bff7-dffe1754e0dc",
   "https://iframe.mediadelivery.net/embed/756775/46d3bcf4-6ca9-4876-996e-5f5ffe9e3775",
   "https://iframe.mediadelivery.net/embed/756775/010f3c1e-4a3a-4092-9f3b-9aea986f65b4",
