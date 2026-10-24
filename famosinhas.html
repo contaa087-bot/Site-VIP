@@ -123,12 +123,18 @@
     .tab-btn {
       padding: 10px 18px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
-      color: #000000;
-      border: 1px solid #facc15;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-sub);
+      border: 1px solid var(--border-neon);
       font-weight: 700;
       font-size: 13px;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #000000;
+      border-color: #facc15;
       box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
     }
   </style>
@@ -144,9 +150,10 @@
       <a href="index.html" class="btn-voltar">← Início</a>
     </div>
 
-    <!-- CABEÇALHO DA SEÇÃO -->
-    <div style="display: flex; justify-content: center; margin: 20px 0;">
-      <button class="tab-btn">🔥 Packs Vazados</button>
+    <!-- CABEÇALHO COM AVIS DE NAVEGAÇÃO ENTRE ABAS -->
+    <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+      <button id="btn-tab-vazados" class="tab-btn active" onclick="trocarAba('vazados')">🔥 Packs Vazados</button>
+      <button id="btn-tab-famosinhas" class="tab-btn" onclick="trocarAba('famosinhas')">⚜ Famosinhas ⚜</button>
     </div>
 
     <!-- CONTAINER DE CONTEÚDO LIBERADO (OCULTO POR PADRÃO PARA SEGURANÇA) -->
@@ -159,12 +166,13 @@
     <div id="conteudo-bloqueado" style="display: none; text-align: center; color: #fff; padding: 60px 20px; background: var(--card-bg); border: 1px solid var(--border-neon); border-radius: 20px; margin-top: 20px;">
       <h3 style="font-size: 22px; color: #facc15; margin-bottom: 10px;">🔒 Conteúdo Exclusivo VIP Famosinhas</h3>
       <p style="margin: 0 0 24px; color: var(--text-sub);">Você precisa adquirir o acesso para visualizar esta galeria privativa.</p>
-      <a href="index.html#card-famosinhas" class="tab-btn" style="text-decoration: none; display: inline-block; padding: 14px 28px; font-size: 15px;">Adquirir Acesso (R$ 15,61)</a>
+      <a href="index.html#card-famosinhas" class="tab-btn active" style="text-decoration: none; display: inline-block; padding: 14px 28px; font-size: 15px;">Adquirir Acesso (R$ 15,61)</a>
     </div>
   </main>
 
   <!-- ARQUIVOS DE MÍDIA DO VIP FAMOSINHAS -->
   <script src="links-famosinhas-vazados.js"></script>
+  <script src="links-famosinhas-famosinhas.js"></script>
 
   <!-- DEFINE A CATEGORIA CORRETA ANTES DO APP.JS -->
   <script>
@@ -178,9 +186,16 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      const listaVazados = window.linksFamosinhasVazados || [];
+      let abaAtual = 'vazados';
       let paginaAtual = 1;
       const ITENS_POR_PAGINA = 10;
+
+      function obterListaDaAba() {
+        if (abaAtual === 'famosinhas') {
+          return window.linksFamosinhasFamosinhas || [];
+        }
+        return window.linksFamosinhasVazados || [];
+      }
 
       function removerAutoplay(url) {
         if (typeof url !== 'string') return url;
@@ -200,16 +215,18 @@
 
         if (!container) return;
 
-        if (listaVazados.length === 0) {
+        const listaAtiva = obterListaDaAba();
+
+        if (listaAtiva.length === 0) {
           container.innerHTML = '<p style="text-align:center; color:#9ca3af; padding: 30px; grid-column: 1/-1;">Nenhum conteúdo cadastrado nesta aba ainda.</p>';
           if (paginationControls) paginationControls.innerHTML = '';
           return;
         }
 
-        const totalPaginas = Math.ceil(listaVazados.length / ITENS_POR_PAGINA);
+        const totalPaginas = Math.ceil(listaAtiva.length / ITENS_POR_PAGINA);
         const inicio = (paginaAtual - 1) * ITENS_POR_PAGINA;
         const fim = inicio + ITENS_POR_PAGINA;
-        const itensPagina = listaVazados.slice(inicio, fim);
+        const itensPagina = listaAtiva.slice(inicio, fim);
 
         container.innerHTML = itensPagina.map(url => {
           if (typeof url === 'string' && url.match(/\.(jpeg|jpg|gif|png|webp)($|\?)/i)) {
@@ -233,11 +250,11 @@
         if (paginationControls && totalPaginas > 1) {
           let btnHTML = `<div style="display:flex; justify-content:center; align-items:center; gap:10px; margin: 25px 0;">`;
           if (paginaAtual > 1) {
-            btnHTML += `<button class="tab-btn" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual - 1})">← Anterior</button>`;
+            btnHTML += `<button class="tab-btn active" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual - 1})">← Anterior</button>`;
           }
           btnHTML += `<span style="color:#fff; font-weight:bold; font-size:13px;">Página ${paginaAtual} de ${totalPaginas}</span>`;
           if (paginaAtual < totalPaginas) {
-            btnHTML += `<button class="tab-btn" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual + 1})">Próxima →</button>`;
+            btnHTML += `<button class="tab-btn active" style="background:#10161f; color:#facc15;" onclick="mudarPagina(${paginaAtual + 1})">Próxima →</button>`;
           }
           btnHTML += `</div>`;
           paginationControls.innerHTML = btnHTML;
@@ -247,6 +264,26 @@
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
+
+      window.trocarAba = function(nomeAba) {
+        abaAtual = nomeAba;
+        paginaAtual = 1;
+
+        const btnVazados = document.getElementById('btn-tab-vazados');
+        const btnFamosinhas = document.getElementById('btn-tab-famosinhas');
+
+        if (btnVazados && btnFamosinhas) {
+          if (nomeAba === 'vazados') {
+            btnVazados.classList.add('active');
+            btnFamosinhas.classList.remove('active');
+          } else {
+            btnFamosinhas.classList.add('active');
+            btnVazados.classList.remove('active');
+          }
+        }
+
+        renderizarFeed();
+      };
 
       window.mudarPagina = function(novaPagina) {
         paginaAtual = novaPagina;
