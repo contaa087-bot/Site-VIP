@@ -132,37 +132,12 @@
       background: rgba(234, 179, 8, 0.3);
     }
 
-    .particles-bg {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-      display: none;
-    }
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--yellow-neon);
-      opacity: 0;
-      animation: floatUp linear infinite;
-      will-change: transform, opacity;
-    }
-    @keyframes floatUp {
-      0% { transform: translate3d(0, 100vh, 0) scale(0.5); opacity: 0; }
-      15% { opacity: 0.7; }
-      85% { opacity: 0.45; }
-      100% { transform: translate3d(0, -10vh, 0) scale(1); opacity: 0; }
-    }
-
     header {
       background: rgba(10, 15, 26, 0.92);
       border-bottom: 1px solid var(--border-neon);
       padding: 12px 16px;
       position: sticky;
-      top: 45px; /* Ajustado para ficar logo abaixo da barra de aviso fixa */
+      top: 45px;
       z-index: 90;
       transform: translateZ(0);
     }
@@ -349,18 +324,18 @@
     .demo-video-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%;
       border-radius: 14px;
       overflow: hidden;
       background: #000;
       border: 1px solid var(--border-neon);
     }
 
-    .demo-video-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
+    .demo-video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 480px;
+      object-fit: contain;
     }
 
     /* GRID DE CARDS */
@@ -516,12 +491,13 @@
       border-color: rgba(234, 179, 8, 0.8);
     }
 
-    .preview-carousel iframe {
+    .preview-carousel video {
       width: 100%;
       aspect-ratio: 9/16;
       border: none;
       display: block;
       background: #000;
+      object-fit: cover;
     }
 
     /* BENEFÍCIOS */
@@ -930,13 +906,6 @@
     }
     .footer-link:hover { color: #eab308; }
 
-    .footer-keywords {
-      font-size: 11px;
-      color: #6b7280;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 14px;
-    }
-
     /* MODAIS */
     .modal-overlay {
       display: none;
@@ -988,33 +957,6 @@
       border-color: var(--yellow-pix);
     }
 
-    .modal-foto-fullscreen {
-      display: none;
-      position: fixed;
-      z-index: 999999;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: rgba(0, 0, 0, 0.96);
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .modal-foto-fullscreen img {
-      max-width: 95%;
-      max-height: 95%;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-
-    .modal-foto-fechar {
-      position: absolute;
-      top: 15px; right: 20px;
-      color: #ffffff;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
     @media (max-width: 768px) {
       .hero-banner h2 { font-size: 20px; }
       .hero-banner { padding: 28px 18px 24px; }
@@ -1034,8 +976,6 @@
         transform: none !important;
       }
 
-      .particles-bg { display: none !important; }
-
       .video-item {
         flex: 0 0 145px;
       }
@@ -1046,15 +986,6 @@
         max-width: 280px;
         padding: 10px 14px;
       }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-      .particles-bg { display: none !important; }
     }
   </style>
 </head>
@@ -1068,9 +999,6 @@
     </div>
     <a href="#faq-section" class="btn-faq-jump">❓ Dúvidas / FAQ</a>
   </div>
-
-  <!-- PARTÍCULAS -->
-  <div class="particles-bg" id="particlesBg"></div>
 
   <!-- TOAST DE COMPRAS -->
   <div id="socialProofToast" class="social-proof-toast">
@@ -1174,10 +1102,13 @@
     <!-- VÍDEO DE DEMONSTRAÇÃO -->
     <div class="demo-section">
       <div class="demo-title">
-        <span>🎬</span> PRÉVIAS – VEJA COMO COMPRAR NO SITE É VEJA NOSSA GALERIA POR DENTRO!
+        <span>🎬</span> PRÉVIAS – VEJA COMO COMPRAR NO SITE E VEJA NOSSA GALERIA POR DENTRO!
       </div>
       <div class="demo-video-wrapper">
-        <iframe src="https://player.mediadelivery.net/embed/756775/d02052ec-a2c0-41e9-a8ca-f4d868ad3470?autoplay=false&preload=false" loading="lazy" allow="autoplay; encrypted-media" allowfullscreen="true"></iframe>
+        <video controls preload="metadata" playsinline muted>
+          <source src="videos/demo.mp4" type="video/mp4">
+          Seu navegador não suporta vídeos HTML5.
+        </video>
       </div>
     </div>
 
@@ -1202,19 +1133,34 @@
             </div>
             <div class="preview-carousel">
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/c2c23422-5a8a-4fb1-904d-47a9713012f1?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-1.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/7a3351fb-8c11-4c04-9841-dfce33693b73?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-2.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/05d2dc25-b40f-4962-9daf-0071d9f9646c?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-3.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/58c23450-326a-4d20-9647-bf468ec0ed48?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-4.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/f8c68f57-9c99-47ec-ba85-361d76f3c9f7?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-5.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="video-item">
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/amador-6.mp4" type="video/mp4">
+                </video>
               </div>
             </div>
           </div>
@@ -1309,19 +1255,34 @@
             </div>
             <div class="preview-carousel">
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/925ff627-08c3-4221-b9b2-20e09ce2e98d?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-1.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/16dbeb7c-e951-404a-adfe-75ff3dfff051?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-2.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/397dda6c-d3f6-4959-a8af-bbbcbc583e6b?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-3.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/f0d20e79-73dd-4cac-83a6-68cfee459b41?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-4.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/90fa3850-98e1-4741-8940-3c25588a7b78?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-5.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="video-item">
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/cam-6.mp4" type="video/mp4">
+                </video>
               </div>
             </div>
           </div>
@@ -1379,16 +1340,34 @@
             </div>
             <div class="preview-carousel">
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/4f91bbc1-0bd7-497a-99f5-064fcd644db8?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-1.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/78ea2e3f-32e5-4009-96a5-dc58a2e42dc8?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-2.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/213a3874-de70-4268-afef-02fd449bbbd2?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-3.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="video-item">
-                <iframe src="https://player.mediadelivery.net/embed/756775/036aeced-3023-4053-8604-9e6a3a7f3855?autoplay=false&preload=false" loading="lazy" allow="gyroscope; encrypted-media" allowfullscreen="true"></iframe>
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-4.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="video-item">
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-5.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="video-item">
+                <video controls preload="metadata" playsinline loop muted>
+                  <source src="videos/famosinhas-6.mp4" type="video/mp4">
+                </video>
               </div>
             </div>
           </div>
@@ -1557,9 +1536,8 @@
 
   </main>
 
-  <!-- RODAPÉ (INSERIDO O PIXEL TAMBÉM AQUI PARA RASTREAR QUEM ROLOU ATÉ O FINAL) -->
+  <!-- RODAPÉ -->
   <footer>
-    <!-- PIXEL NO RODAPÉ PARA LEADS QUALIFICADOS (QUE CHEGARAM ATÉ O FIM) -->
     <script>
       if (typeof fbq === 'function') {
         fbq('track', 'ViewContent', { content_name: 'Rodape_Final_Pagina' });
@@ -1676,12 +1654,6 @@
 
       <button onclick="fecharModalAdmin()" class="auth-btn" style="width:100%; margin-top:16px;">Fechar Painel</button>
     </div>
-  </div>
-
-  <!-- MODAL FOTO FULLSCREEN -->
-  <div id="modalFotoFullscreen" class="modal-foto-fullscreen" onclick="fecharFotoFullscreen()">
-    <span class="modal-foto-fechar">&times;</span>
-    <img id="imgFullscreenSrc" src="" alt="Foto expandida">
   </div>
 
   <script src="links-cam.js"></script>
