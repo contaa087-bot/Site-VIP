@@ -289,7 +289,6 @@ window.linksFamosinhasVazados = [
   "https://iframe.mediadelivery.net/embed/756775/15db34fb-a547-4aac-903c-d3effb705b93",
   "https://iframe.mediadelivery.net/embed/756775/131165c9-a7e3-4f49-81cf-bd3f0242458b",
   "https://iframe.mediadelivery.net/embed/756775/861869be-9095-4d20-ab18-ec58ea53a898",
-  "https://iframe.mediadelivery.net/embed/756775/cc7b46e1-d0aa-4d2e-a6d1-dd2628a45bca",
   "https://iframe.mediadelivery.net/embed/756775/25bb0e5c-ae44-457f-a605-672b3c10c726",
   "https://iframe.mediadelivery.net/embed/756775/99c5f74c-9c02-4240-a26d-d3f783c0f598",
   "https://iframe.mediadelivery.net/embed/756775/c1350716-df47-4fdd-a157-35dc3c4cd0d1",
