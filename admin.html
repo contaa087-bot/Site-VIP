@@ -11,6 +11,7 @@
       --card: #131a24; 
       --green: #22c55e; 
       --yellow: #facc15; 
+      --red: #ef4444;
       --text: #fff; 
       --sub: #94a3b8; 
       --border: rgba(255,255,255,0.1);
@@ -38,7 +39,7 @@
     
     .badge { background: #22c55e22; color: #22c55e; padding: 2px 6px; border-radius: 4px; font-weight: bold; white-space: nowrap; display: inline-block; margin: 2px 0; }
     .countdown-text { color: var(--yellow); font-weight: 600; font-size: 11px; white-space: nowrap; }
-    .expired-text { color: #ef4444; font-weight: 600; font-size: 11px; white-space: nowrap; }
+    .expired-text { color: var(--red); font-weight: 600; font-size: 11px; white-space: nowrap; }
     
     .user-info { display: flex; flex-direction: column; gap: 2px; }
     .user-email { font-weight: 600; color: #fff; font-size: 13px; word-break: break-all; }
@@ -47,7 +48,7 @@
     /* DASHBOARD MÉTRICAS */
     .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
       gap: 12px;
       margin-bottom: 16px;
     }
@@ -90,6 +91,7 @@
         <option value="amador">Amador VIP</option>
         <option value="cam">Spycam VIP</option>
         <option value="famosinhas">Famosinhas VIP ✨</option>
+        <option value="corno">Corno & Hotwife VIP 🐂</option>
         <option value="promo_30">Promoção Dupla (Leve 2 Pague 1)</option>
       </select>
       <select id="adm-dias">
@@ -129,7 +131,11 @@
           <div class="metric-val" id="metric-total-vips">0</div>
         </div>
         <div class="metric-box">
-          <div class="metric-label">Famosinhas VIP</div>
+          <div class="metric-label">Corno VIP</div>
+          <div class="metric-val" id="metric-corno">0</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">Famosinhas</div>
           <div class="metric-val" id="metric-famosinhas">0</div>
         </div>
         <div class="metric-box">
@@ -206,7 +212,6 @@
       const tbody = document.getElementById('tabela-vendas');
       tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>';
 
-      // Ordenação exata pela coluna real do seu banco: data_compra (do mais recente para o mais antigo)
       const { data: compras, error: erroCompras } = await _supabase
         .from('compras_usuario')
         .select('*')
@@ -215,7 +220,7 @@
 
       if (erroCompras) {
         console.error("Erro Supabase:", erroCompras);
-        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:#ef4444;">Erro ao carregar vendas.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color:var(--red);">Erro ao carregar vendas.</td></tr>';
         return;
       }
 
@@ -256,6 +261,7 @@
       if (error || !data) return;
 
       let countTotal = data.length;
+      let countCorno = 0;
       let countFamosinhas = 0;
       let countAmador = 0;
       let countCam = 0;
@@ -263,12 +269,14 @@
       data.forEach(item => {
         if (!item.categoria_id) return;
         const cat = item.categoria_id.toLowerCase();
+        if (cat.includes('corno')) countCorno++;
         if (cat.includes('famosinhas')) countFamosinhas++;
         if (cat.includes('amador')) countAmador++;
         if (cat.includes('cam')) countCam++;
       });
 
       document.getElementById('metric-total-vips').innerText = countTotal;
+      document.getElementById('metric-corno').innerText = countCorno;
       document.getElementById('metric-famosinhas').innerText = countFamosinhas;
       document.getElementById('metric-amador').innerText = countAmador;
       document.getElementById('metric-cam').innerText = countCam;
