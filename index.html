@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Galeria VIP Privada 🔞 - Conteúdos Exclusivos</title>
+  <title>Comunidade & Galeria VIP Privada 🔞</title>
 
   <!-- META PIXEL CODE (TOPO DO SITE) -->
   <script>
@@ -221,6 +221,101 @@
       padding: 0 14px;
       position: relative;
       z-index: 1;
+    }
+
+    /* NAVEGAÇÃO DA COMUNIDADE */
+    .community-nav {
+      display: flex;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 8px;
+      border-radius: 16px;
+      border: 1px solid var(--border-neon);
+      margin-bottom: 24px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    .community-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      padding: 12px 10px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .community-tab:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .community-tab.active {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #000;
+      box-shadow: 0 0 18px rgba(234, 179, 8, 0.45);
+    }
+
+    .tab-section {
+      display: none;
+    }
+    .tab-section.active {
+      display: block;
+    }
+
+    /* MURAL / POSTS DA COMUNIDADE */
+    .feed-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-neon);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    .feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .feed-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feed-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 13px;
+      color: #fff;
+    }
+
+    .feed-body {
+      font-size: 14px;
+      color: #e5e7eb;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .feed-footer {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     /* HERO BANNER */
@@ -988,6 +1083,7 @@
       .btn-buy { font-size: 13px; padding: 14px; }
       .btn-paypal { font-size: 12px; padding: 11px; }
       .modal { padding: 24px 18px; }
+      .community-tab { font-size: 12px; padding: 10px 6px; }
 
       .card:hover,
       .video-item:hover,
@@ -1020,7 +1116,7 @@
       <span>⚠️</span>
       <span>Conteúdos exclusivos rodando <b>direto no player de alta velocidade</b> com liberação automática!</span>
     </div>
-    <a href="#faq-section" class="btn-faq-jump">❓ Dúvidas / FAQ</a>
+    <a href="#faq-section" class="btn-faq-jump" onclick="alternarAba('planos', document.getElementById('tab-btn-planos'))">❓ Dúvidas / FAQ</a>
   </div>
 
   <!-- TOAST DE COMPRAS -->
@@ -1059,7 +1155,7 @@
         🔞 CONTEÚDO RESTRITO (+18)
       </h2>
       <p style="font-size: 14px; color: #9ca3af; margin-bottom: 12px; line-height: 1.5;">
-        Este portal contém material adulto explícito destinado exclusivamente para maiores de idade.
+        Esta comunidade e portal contêm material adulto explícito destinado exclusivamente para maiores de idade.
       </p>
       <p style="font-size: 15px; color: #ffffff; margin-bottom: 24px; font-weight: 700;">
         Você confirma ter 18 anos ou mais?
@@ -1102,8 +1198,8 @@
       <div class="channel-info">
         <div class="channel-avatar">VIP</div>
         <div class="channel-details">
-          <h1>Portal Privado 🔞</h1>
-          <span class="channel-stats">Painel de Membros • Áreas Exclusivas</span>
+          <h1>Comunidade & Portal 🔞</h1>
+          <span class="channel-stats">Área de Membros • Galerias Exclusivas</span>
         </div>
       </div>
       <div id="user-area">
@@ -1114,555 +1210,621 @@
 
   <main class="main-container">
 
-    <!-- HERO BANNER -->
-    <div class="hero-banner">
-      <span class="badge-promo">🔥 LANÇAMENTO EXCLUSIVO</span>
-      <h2>GALERIA VIP PRIVADA – ACESSO IMEDIATO ÀS MÍDIAS</h2>
-      <p>Explore acervos confidenciais, flagras de cuckold, hotwife, fetiches extremos, spycam e amadores reais sem censura. Escolha sua galeria ou aproveite o combo promocional.</p>
-      <a href="#card-corno" class="hero-cta">✨ CONHECER NOVO VIP CORNO / HOTWIFE</a>
+    <!-- MENU DE NAVEGAÇÃO DA COMUNIDADE -->
+    <div class="community-nav">
+      <button class="community-tab active" id="tab-btn-planos" onclick="alternarAba('planos', this)">🔥 Galerias & Planos VIP</button>
+      <button class="community-tab" id="tab-btn-comunidade" onclick="alternarAba('comunidade', this)">🏠 Mural da Comunidade</button>
+      <button class="community-tab" id="tab-btn-chat" onclick="alternarAba('chat', this)">💬 Chat ao Vivo</button>
     </div>
 
-    <!-- VÍDEO DE DEMONSTRAÇÃO -->
-    <div class="demo-section">
-      <div class="demo-title">
-        <span>🎬</span> PRÉVIAS – VEJA A QUALIDADE DA NOSSA PLATAFORMA POR DENTRO!
-      </div>
-      <div class="demo-video-wrapper">
-        <video controls preload="metadata" playsinline muted>
-          <source src="videos/demo.mp4" type="video/mp4">
-          Seu navegador não suporta vídeos HTML5.
-        </video>
-        <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-      </div>
-    </div>
+    <!-- ========================================================= -->
+    <!-- ABA 1: GALERIAS & PLANOS VIP (INICIA ATIVA PARA VENDER)   -->
+    <!-- ========================================================= -->
+    <div id="sec-planos" class="tab-section active">
 
-    <!-- LISTA DE PLANOS / OFERTAS VIP -->
-    <div class="grid">
+      <!-- HERO BANNER -->
+      <div class="hero-banner">
+        <span class="badge-promo">🔥 LANÇAMENTO EXCLUSIVO</span>
+        <h2>COMUNIDADE & GALERIA VIP PRIVADA – ACESSO IMEDIATO</h2>
+        <p>Explore acervos confidenciais, flagras de cuckold, hotwife, fetiches extremos, spycam e amadores reais sem censura. Escolha sua galeria ou interaja com os membros.</p>
+        <a href="#card-corno" class="hero-cta">✨ CONHECER NOVO VIP CORNO / HOTWIFE</a>
+      </div>
 
-      <!-- 1. VIP AMADOR -->
-      <div class="card" id="card-amador">
-        <div class="card-header">
-          <h3>⭐ Amador Premium ⭐</h3>
-          <div class="card-badges">
-            <span class="plan-badge">PLANOS 30 E 90 DIAS</span>
-            <span class="status-badge bloqueado" id="badge-amador">🔒 Bloqueado</span>
-          </div>
+      <!-- VÍDEO DE DEMONSTRAÇÃO -->
+      <div class="demo-section">
+        <div class="demo-title">
+          <span>🎬</span> PRÉVIAS – VEJA A QUALIDADE DA NOSSA PLATAFORMA POR DENTRO!
         </div>
-
-        <div class="card-body">
-          <div class="preview-carousel-wrapper">
-            <div class="carousel-hint">
-              <span>🎬 PRÉVIAS AMADOR</span>
-              <span>Deslize para o lado ➔</span>
-            </div>
-            <div class="preview-carousel">
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-1.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-2.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-3.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-4.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-5.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/amador-6.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="vip-description">
-            <p>Acervo caseiro e amador completo com atualizações diárias:</p>
-            <ul class="benefits-list">
-              <li><span class="check">✓</span> <b>Escolha seu plano: 30 dias ou 90 dias de acesso VIP</b></li>
-              <li><span class="check">✓</span> Vídeos amadores exclusivos & vazados</li>
-              <li><span class="check">✓</span> Novinhas safadas 🔞</li>
-              <li><span class="check">✓</span> Faveladas / Baixa Renda</li>
-              <li><span class="check">✓</span> Conteúdos especiais e mídias sem censura</li>
-              <li><span class="check">✓</span> incesto / tio e sobrinha / etc..</li>
-              <li><span class="check">✓</span> Mulher Dançando pelada</li>
-              <li><span class="check">✓</span> videos Tiktok+18</li>
-              <li><span class="check">✓</span> videos Omegle</li>
-              <li><span class="check">✓</span> Entre agora no maior e mais exclusivo vip de amadores/vazados da web</li>
-              <li><span class="check">✓</span> Seleções especiais e mídias daquelas que não pode ser vistas!</li>
-              <li><span class="check">✓</span> Mulheres No CIO 😈</li>
-              <li><span class="check">✓</span> Proibidão Caseiros</li>
-              <li><span class="check">✓</span> Vazadados Secretos</li>
-            </ul>
-          </div>
-
-          <div class="plan-actions" id="actions-amador">
-            <button id="buy-amador-30" class="btn-buy" onclick="iniciarCompra('amador_30')">⚡ LIBERAR AMADOR • 30 DIAS (R$ 19,90)</button>
-            <button id="buy-amador-90" class="btn-buy" onclick="iniciarCompra('amador_90')">⚡ LIBERAR AMADOR • 90 DIAS (R$ 29,90)</button>
-
-            <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-amador">
-              🌐Buy with PayPal (Telegram Support)
-            </a>
-          </div>
-
-          <a href="amador.html" id="access-amador" class="btn-access" style="display:none;">ENTRAR NA GALERIA AMADOR</a>
-          <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+        <div class="demo-video-wrapper">
+          <video controls preload="metadata" playsinline muted>
+            <source src="videos/demo.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+          </video>
+          <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
         </div>
       </div>
 
-      <!-- 2. PROMOÇÃO DUPLA -->
-      <div class="card card-promo-dupla" id="card-promo-dupla">
-        <div class="card-header" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.2) 0%, #131a24 100%);">
-          <h3>💥 PROMOÇÃO DUPLA • LEVE 2 PAGUE 1 (30 DIAS) 💥</h3>
-          <div class="card-badges">
-            <span class="plan-badge" style="background: rgba(34, 197, 94, 0.2); color: #4ade80; border-color: rgba(34, 197, 94, 0.4);">OFERTA ESPECIAL</span>
-            <span class="status-badge bloqueado" id="badge-promo_30">🔒 Bloqueado</span>
+      <!-- LISTA DE PLANOS / OFERTAS VIP -->
+      <div class="grid">
+
+        <!-- 1. VIP AMADOR -->
+        <div class="card" id="card-amador">
+          <div class="card-header">
+            <h3>⭐ Amador Premium ⭐</h3>
+            <div class="card-badges">
+              <span class="plan-badge">PLANOS 30 E 90 DIAS</span>
+              <span class="status-badge bloqueado" id="badge-amador">🔒 Bloqueado</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="preview-carousel-wrapper">
+              <div class="carousel-hint">
+                <span>🎬 PRÉVIAS AMADOR</span>
+                <span>Deslize para o lado ➔</span>
+              </div>
+              <div class="preview-carousel">
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-1.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-2.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-3.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-4.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-5.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/amador-6.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="vip-description">
+              <p>Acervo caseiro e amador completo com atualizações diárias:</p>
+              <ul class="benefits-list">
+                <li><span class="check">✓</span> <b>Escolha seu plano: 30 dias ou 90 dias de acesso VIP</b></li>
+                <li><span class="check">✓</span> Vídeos amadores exclusivos & vazados</li>
+                <li><span class="check">✓</span> Novinhas safadas 🔞</li>
+                <li><span class="check">✓</span> Faveladas / Baixa Renda</li>
+                <li><span class="check">✓</span> Conteúdos especiais e mídias sem censura</li>
+                <li><span class="check">✓</span> incesto / tio e sobrinha / etc..</li>
+                <li><span class="check">✓</span> Mulher Dançando pelada</li>
+                <li><span class="check">✓</span> videos Tiktok+18</li>
+                <li><span class="check">✓</span> videos Omegle</li>
+                <li><span class="check">✓</span> Entre agora no maior e mais exclusivo vip de amadores/vazados da web</li>
+                <li><span class="check">✓</span> Seleções especiais e mídias daquelas que não pode ser vistas!</li>
+                <li><span class="check">✓</span> Mulheres No CIO 😈</li>
+                <li><span class="check">✓</span> Proibidão Caseiros</li>
+                <li><span class="check">✓</span> Vazadados Secretos</li>
+              </ul>
+            </div>
+
+            <div class="plan-actions" id="actions-amador">
+              <button id="buy-amador-30" class="btn-buy" onclick="iniciarCompra('amador_30')">⚡ LIBERAR AMADOR • 30 DIAS (R$ 19,90)</button>
+              <button id="buy-amador-90" class="btn-buy" onclick="iniciarCompra('amador_90')">⚡ LIBERAR AMADOR • 90 DIAS (R$ 29,90)</button>
+
+              <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-amador">
+                🌐Buy with PayPal (Telegram Support)
+              </a>
+            </div>
+
+            <a href="amador.html" id="access-amador" class="btn-access" style="display:none;">ENTRAR NA GALERIA AMADOR</a>
+            <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
           </div>
         </div>
 
-        <div class="card-body">
-          <div class="vip-description">
-            <p>Garanta acesso total e simultâneo às galerias principais pelo preço de apenas 1:</p>
-            <ul class="benefits-list">
-              <li><span class="check">✓</span> <b>Acesso ilimitado à Galeria Amador Premium (30 Dias)</b></li>
-              <li><span class="check">✓</span> <b>Acesso ilimitado à Galeria Spycam VIP Dark (30 Dias)</b></li>
-              <li><span class="check">✓</span> Economize instantaneamente no pacote duplo promocional</li>
-            </ul>
+        <!-- 2. PROMOÇÃO DUPLA -->
+        <div class="card card-promo-dupla" id="card-promo-dupla">
+          <div class="card-header" style="background: linear-gradient(180deg, rgba(234, 179, 8, 0.2) 0%, #131a24 100%);">
+            <h3>💥 PROMOÇÃO DUPLA • LEVE 2 PAGUE 1 (30 DIAS) 💥</h3>
+            <div class="card-badges">
+              <span class="plan-badge" style="background: rgba(34, 197, 94, 0.2); color: #4ade80; border-color: rgba(34, 197, 94, 0.4);">OFERTA ESPECIAL</span>
+              <span class="status-badge bloqueado" id="badge-promo_30">🔒 Bloqueado</span>
+            </div>
           </div>
 
-          <div class="combo-price-box">
-            <span class="combo-price-de">De R$ 39,80</span>
-            <span class="combo-price-por">Por R$ 29,65</span>
-            <span class="combo-badge-discount">LEVE 2 PAGUE 1</span>
+          <div class="card-body">
+            <div class="vip-description">
+              <p>Garanta acesso total e simultâneo às galerias principais pelo preço de apenas 1:</p>
+              <ul class="benefits-list">
+                <li><span class="check">✓</span> <b>Acesso ilimitado à Galeria Amador Premium (30 Dias)</b></li>
+                <li><span class="check">✓</span> <b>Acesso ilimitado à Galeria Spycam VIP Dark (30 Dias)</b></li>
+                <li><span class="check">✓</span> Economize instantaneamente no pacote duplo promocional</li>
+              </ul>
+            </div>
+
+            <div class="combo-price-box">
+              <span class="combo-price-de">De R$ 39,80</span>
+              <span class="combo-price-por">Por R$ 29,65</span>
+              <span class="combo-badge-discount">LEVE 2 PAGUE 1</span>
+            </div>
+
+            <div class="plan-actions" id="actions-promo_30">
+              <button id="buy-promo-30" class="btn-buy btn-buy-promo" onclick="iniciarCompra('promo_30')">
+                🚀 APROVEITAR PROMOÇÃO DUPLA (R$ 29,65)
+              </button>
+              <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-promo">
+                🌐Buy with PayPal (Telegram Support)
+              </a>
+            </div>
+
+            <a href="amador.html" id="access-promo_30" class="btn-access" style="display:none;">ACESSAR TODAS AS GALERIAS VIP</a>
+            <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+          </div>
+        </div>
+
+        <!-- 3. VIP CAM -->
+        <div class="card" id="card-cam">
+          <div class="card-header">
+            <h3>🔥 SPYCAM VIP DARK 🔥</h3>
+            <div class="card-badges">
+              <span class="plan-badge">PLANOS 30 E 90 DIAS</span>
+              <span class="status-badge bloqueado" id="badge-cam">🔒 Bloqueado</span>
+            </div>
           </div>
 
-          <div class="plan-actions" id="actions-promo_30">
-            <button id="buy-promo-30" class="btn-buy btn-buy-promo" onclick="iniciarCompra('promo_30')">
-              🚀 APROVEITAR PROMOÇÃO DUPLA (R$ 29,65)
-            </button>
-            <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-promo">
-              🌐Buy with PayPal (Telegram Support)
-            </a>
+          <div class="card-body">
+            <div class="preview-carousel-wrapper">
+              <div class="carousel-hint">
+                <span>🎬 PRÉVIAS SPYCAM DARK</span>
+                <span>Deslize para o lado ➔</span>
+              </div>
+              <div class="preview-carousel">
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-1.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-2.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-3.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-4.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-5.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/cam-6.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="vip-description">
+              <p>Acesso exclusivo ao canal de câmeras e flagras:</p>
+              <ul class="benefits-list">
+                <li><span class="check">✓</span> <b>Escolha seu plano: 30 dias ou 90 dias de acesso VIP</b></li>
+                <li><span class="check">✓</span> Câmeras escondidas e flagras reais</li>
+                <li><span class="check">✓</span> flagras reais / CASAL</li>
+                <li><span class="check">✓</span> +50 Videos do QUARTO DA BRUNA</li>
+                <li><span class="check">✓</span> QUARTO DO NETO</li>
+                <li><span class="check">✓</span> Câmeras escondidas / RESIDENCIAS</li>
+                <li><span class="check">✓</span> Câmeras escondidas BANHEIROS</li>
+                <li><span class="check">✓</span> FLAGRAS REAIS</li>
+                <li><span class="check">✓</span> FAMILIARES FLAGRADOS</li>
+                <li><span class="check">✓</span> Câmeras escondidas no MOTEL</li>
+                <li><span class="check">✓</span> SPYCAM DARK / Mãe E Filho😈</li>
+                <li><span class="check">✓</span> CÂMERAS ESCONDIDAS, SURUBINHA ENTRE PRIMOS, ETC...</li>
+                <li><span class="check">✓</span> Sem anúncios ou interrupções</li>
+                <li><span class="check">✓</span> Venha Conferir</li>
+              </ul>
+            </div>
+
+            <div class="plan-actions" id="actions-cam">
+              <button id="buy-cam-30" class="btn-buy" onclick="iniciarCompra('cam_30')">⚡ LIBERAR CÂMERAS • 30 DIAS (R$ 19,91)</button>
+              <button id="buy-cam-90" class="btn-buy" onclick="iniciarCompra('cam_90')">⚡ LIBERAR CÂMERAS • 90 DIAS (R$ 29,91)</button>
+
+              <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-cam">
+                🌐Buy with PayPal (Telegram Support)
+              </a>
+            </div>
+
+            <a href="cam.html" id="access-cam" class="btn-access" style="display:none;">ENTRAR NA GALERIA CÂMERAS</a>
+            <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+          </div>
+        </div>
+
+        <!-- 4. NOVO VIP FAMOSINHAS -->
+        <div class="card" id="card-famosinhas">
+          <div class="card-header">
+            <h3>✨ FAMOSINHAS VIP ✨</h3>
+            <div class="card-badges">
+              <span class="plan-badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15; border-color: rgba(234, 179, 8, 0.5);">NOVO VIP</span>
+              <span class="status-badge bloqueado" id="badge-famosinhas">🔒 Bloqueado</span>
+            </div>
           </div>
 
-          <a href="amador.html" id="access-promo_30" class="btn-access" style="display:none;">ACESSAR TODAS AS GALERIAS VIP</a>
-          <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+          <div class="card-body">
+            <div class="preview-carousel-wrapper">
+              <div class="carousel-hint">
+                <span>🎬 PRÉVIAS FAMOSINHAS VIP</span>
+                <span>Deslize para o lado ➔</span>
+              </div>
+              <div class="preview-carousel">
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-1.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-2.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-3.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-4.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-5.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/famosinhas-6.mp4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="vip-description">
+              <p>O acervo mais disputado da web com conteúdos exclusivos e packs pesados das famosas:</p>
+              <ul class="benefits-list">
+                <li><span class="check">✓</span> <b>Acesso VIP Completo (30 Dias)</b></li>
+                <li><span class="check">✓</span> Conteúdos proibidos, nudes e packs vazados</li>
+                <li><span class="check">✓</span> Vídeos amadores vazados de influenciadoras e modelos da internet</li>
+                <li><span class="check">✓</span> Gravações íntimas em alta definição e sem censura</li>
+                <li><span class="check">✓</span> Videos Das Famosas dando o cuzinho</li>
+                <li><span class="check">✓</span> Famosas mostrando a Buceta</li>
+                <li><span class="check">✓</span> Masturbação, gemendo gostoso, e gozando!</li>
+                <li><span class="check">✓</span> ✅ Venham Conferir</li>
+              </ul>
+            </div>
+
+            <div class="combo-price-box">
+              <span class="combo-price-de">De R$ 35,00</span>
+              <span class="combo-price-por">Por R$ 15,61</span>
+              <span class="combo-badge-discount">LANÇAMENTO</span>
+            </div>
+
+            <div class="plan-actions" id="actions-famosinhas">
+              <button id="buy-famosinhas" class="btn-buy" onclick="iniciarCompra('famosinhas')">
+                ✨ LIBERAR FAMOSINHAS VIP (R$ 15,61)
+              </button>
+              <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-famosinhas">
+                🌐Buy with PayPal (Telegram Support)
+              </a>
+            </div>
+
+            <a href="famosinhas.html" id="access-famosinhas" class="btn-access" style="display:none;">ENTRAR NA GALERIA FAMOSINHAS</a>
+            <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+          </div>
+        </div>
+
+        <!-- 5. NOVO VIP CORNO / HOTWIFE -->
+        <div class="card card-promo-dupla" id="card-corno" style="border-color: #ef4444;">
+          <div class="card-header" style="background: linear-gradient(180deg, rgba(239, 68, 68, 0.25) 0%, #131a24 100%);">
+            <h3>🐂 CORNOS, CUCKOLD & HOTWIFE 💋</h3>
+            <div class="card-badges">
+              <span class="plan-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: rgba(239, 68, 68, 0.5);">NOVO VIP EXCLUSIVO</span>
+              <span class="status-badge bloqueado" id="badge-corno">🔒 Bloqueado</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="preview-carousel-wrapper">
+              <div class="carousel-hint">
+                <span>🎬 PRÉVIAS CORNO & HOTWIFE</span>
+                <span>Deslize para o lado ➔</span>
+              </div>
+              <div class="preview-carousel">
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/1CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/2CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/3CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/4CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/5CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+                <div class="video-item">
+                  <video controls preload="metadata" playsinline loop muted>
+                    <source src="videos/6CORNO.MP4" type="video/mp4">
+                  </video>
+                  <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="vip-description">
+              <p>O clube mais procurado de fetiches, hotwife, cuckold e flagras de esposas compartilhadas:</p>
+              <ul class="benefits-list">
+                <li><span class="check">✓</span> <b>Acesso VIP Completo (30 Dias)</b></li>
+                <li><span class="check">✓</span> Conteúdos de cuckold, hotwife e fetiches de cornos</li>
+                <li><span class="check">✓</span> Flagras, compartilhamentos e humilhações sem censura</li>
+                <li><span class="check">✓</span> novos casais e Amadores sendo compartilhado</li>
+                <li><span class="check">✓</span> Casal Jovens Comendo Geral</li>
+                <li><span class="check">✓</span> Amadores Vazados Casal Corno</li>
+              </ul>
+            </div>
+
+            <div class="combo-price-box">
+              <span class="combo-price-de">De R$ 24,65</span>
+              <span class="combo-price-por">Por R$ 10,65</span>
+              <span class="combo-badge-discount">LANÇAMENTO</span>
+            </div>
+
+            <div class="plan-actions" id="actions-corno">
+              <button id="buy-corno" class="btn-buy" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff;" onclick="iniciarCompra('corno')">
+                🐂 LIBERAR CORNO & HOTWIFE (R$ 10,65)
+              </button>
+              <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-corno">
+                🌐Buy with PayPal (Telegram Support)
+              </a>
+            </div>
+
+            <a href="corno.html" id="access-corno" class="btn-access" style="display:none;">ENTRAR NA GALERIA CORNO & HOTWIFE</a>
+            <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="reviews-section">
+        <div class="reviews-title">💬 O que dizem nossos membros VIP</div>
+        <div class="reviews-grid">
+          <div class="review-item">
+            <div class="review-header">
+              <span class="review-user">M***o S.</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-text">Comprei o acesso e liberou na hora pelo Pix. Conteúdo de primeiríssima qualidade!</div>
+          </div>
+          <div class="review-item">
+            <div class="review-header">
+              <span class="review-user">R***al</span>
+              <span class="review-stars">★★★★★</span>
+            </div>
+            <div class="review-text">Plataforma excelente, vídeos rodam direto no site sem travamentos. Recomendo demais!</div>
+          </div>
         </div>
       </div>
 
-      <!-- 3. VIP CAM -->
-      <div class="card" id="card-cam">
-        <div class="card-header">
-          <h3>🔥 SPYCAM VIP DARK 🔥</h3>
-          <div class="card-badges">
-            <span class="plan-badge">PLANOS 30 E 90 DIAS</span>
-            <span class="status-badge bloqueado" id="badge-cam">🔒 Bloqueado</span>
+      <!-- SEÇÃO DE PERGUNTAS FREQUENTES (FAQ) -->
+      <div class="faq-section" id="faq-section">
+        <div class="faq-title">❓ Perguntas Frequentes (FAQ)</div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-q">Os vídeos são em grupos de Telegram?</div>
+            <div class="faq-a">Não! Todo o conteúdo é assistido diretamente aqui no site através de um player de alta velocidade, sem travamentos e sem precisar entrar em grupos.</div>
           </div>
-        </div>
-
-        <div class="card-body">
-          <div class="preview-carousel-wrapper">
-            <div class="carousel-hint">
-              <span>🎬 PRÉVIAS SPYCAM DARK</span>
-              <span>Deslize para o lado ➔</span>
-            </div>
-            <div class="preview-carousel">
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-1.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-2.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-3.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-4.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-5.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/cam-6.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-            </div>
+          <div class="faq-item">
+            <div class="faq-q">Como é feito o acesso após o pagamento?</div>
+            <div class="faq-a">A liberação é totalmente automática logo após a confirmação do pagamento. O acesso é vinculado diretamente à sua conta cadastrada no site.</div>
           </div>
-
-          <div class="vip-description">
-            <p>Acesso exclusivo ao canal de câmeras e flagras:</p>
-            <ul class="benefits-list">
-              <li><span class="check">✓</span> <b>Escolha seu plano: 30 dias ou 90 dias de acesso VIP</b></li>
-              <li><span class="check">✓</span> Câmeras escondidas e flagras reais</li>
-              <li><span class="check">✓</span> flagras reais / CASAL</li>
-              <li><span class="check">✓</span> +50 Videos do QUARTO DA BRUNA</li>
-              <li><span class="check">✓</span> QUARTO DO NETO</li>
-              <li><span class="check">✓</span> Câmeras escondidas / RESIDENCIAS</li>
-              <li><span class="check">✓</span> Câmeras escondidas BANHEIROS</li>
-              <li><span class="check">✓</span> FLAGRAS REAIS</li>
-              <li><span class="check">✓</span> FAMILIARES FLAGRADOS</li>
-              <li><span class="check">✓</span> Câmeras escondidas no MOTEL</li>
-              <li><span class="check">✓</span> SPYCAM DARK / Mãe E Filho😈</li>
-              <li><span class="check">✓</span> CÂMERAS ESCONDIDAS, SURUBINHA ENTRE PRIMOS, ETC...</li>
-              <li><span class="check">✓</span> Sem anúncios ou interrupções</li>
-              <li><span class="check">✓</span> Venha Conferir</li>
-            </ul>
-          </div>
-
-          <div class="plan-actions" id="actions-cam">
-            <button id="buy-cam-30" class="btn-buy" onclick="iniciarCompra('cam_30')">⚡ LIBERAR CÂMERAS • 30 DIAS (R$ 19,91)</button>
-            <button id="buy-cam-90" class="btn-buy" onclick="iniciarCompra('cam_90')">⚡ LIBERAR CÂMERAS • 90 DIAS (R$ 29,91)</button>
-
-            <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-cam">
-              🌐Buy with PayPal (Telegram Support)
-            </a>
-          </div>
-
-          <a href="cam.html" id="access-cam" class="btn-access" style="display:none;">ENTRAR NA GALERIA CÂMERAS</a>
-          <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
         </div>
       </div>
 
-      <!-- 4. NOVO VIP FAMOSINHAS -->
-      <div class="card" id="card-famosinhas">
-        <div class="card-header">
-          <h3>✨ FAMOSINHAS VIP ✨</h3>
-          <div class="card-badges">
-            <span class="plan-badge" style="background: rgba(234, 179, 8, 0.2); color: #facc15; border-color: rgba(234, 179, 8, 0.5);">NOVO VIP</span>
-            <span class="status-badge bloqueado" id="badge-famosinhas">🔒 Bloqueado</span>
+    </div> <!-- FIM ABA 1 -->
+
+    <!-- ========================================================= -->
+    <!-- ABA 2: MURAL DA COMUNIDADE                                -->
+    <!-- ========================================================= -->
+    <div id="sec-comunidade" class="tab-section">
+      <div class="hero-banner" style="padding: 26px 20px;">
+        <span class="badge-promo">📢 MURAL OFICIAL</span>
+        <h2>NOVIDADES & ATUALIZAÇÕES DA COMUNIDADE</h2>
+        <p>Fique por dentro das últimas mídias adicionadas, enquetes e avisos importantes da equipe.</p>
+        <button class="hero-cta" onclick="alternarAba('chat', document.getElementById('tab-btn-chat'))">💬 IR PARA O CHAT AO VIVO</button>
+      </div>
+
+      <div class="feed-card">
+        <div class="feed-header">
+          <div class="feed-author">
+            <div class="feed-avatar">ADM</div>
+            <div>
+              <div style="font-size: 14px; font-weight: 800; color: #fff;">Administração <span class="tag-adm-vermelha">[ADM] 🔴</span></div>
+              <div style="font-size: 11px; color: var(--text-sub);">Fixado no Mural</div>
+            </div>
           </div>
         </div>
-
-        <div class="card-body">
-          <div class="preview-carousel-wrapper">
-            <div class="carousel-hint">
-              <span>🎬 PRÉVIAS FAMOSINHAS VIP</span>
-              <span>Deslize para o lado ➔</span>
-            </div>
-            <div class="preview-carousel">
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-1.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-2.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-3.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-4.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-5.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/famosinhas-6.mp4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="vip-description">
-            <p>O acervo mais disputado da web com conteúdos exclusivos e packs pesados das famosas:</p>
-            <ul class="benefits-list">
-              <li><span class="check">✓</span> <b>Acesso VIP Completo (30 Dias)</b></li>
-              <li><span class="check">✓</span> Conteúdos proibidos, nudes e packs vazados</li>
-              <li><span class="check">✓</span> Vídeos amadores vazados de influenciadoras e modelos da internet</li>
-              <li><span class="check">✓</span> Gravações íntimas em alta definição e sem censura</li>
-              <li><span class="check">✓</span> Videos Das Famosas dando o cuzinho</li>
-              <li><span class="check">✓</span> Famosas mostrando a Buceta</li>
-              <li><span class="check">✓</span> Masturbação, gemendo gostoso, e gozando!</li>
-              <li><span class="check">✓</span> ✅ Venham Conferir</li>
-            </ul>
-          </div>
-
-          <div class="combo-price-box">
-            <span class="combo-price-de">De R$ 35,00</span>
-            <span class="combo-price-por">Por R$ 15,61</span>
-            <span class="combo-badge-discount">LANÇAMENTO</span>
-          </div>
-
-          <div class="plan-actions" id="actions-famosinhas">
-            <button id="buy-famosinhas" class="btn-buy" onclick="iniciarCompra('famosinhas')">
-              ✨ LIBERAR FAMOSINHAS VIP (R$ 15,61)
-            </button>
-            <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-famosinhas">
-              🌐Buy with PayPal (Telegram Support)
-            </a>
-          </div>
-
-          <a href="famosinhas.html" id="access-famosinhas" class="btn-access" style="display:none;">ENTRAR NA GALERIA FAMOSINHAS</a>
-          <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+        <div class="feed-body">
+          🔥 <b>Bem-vindo à nossa Comunidade!</b> Aqui você pode conversar com outros membros no Chat ao Vivo, ganhar selo exclusivo <b>[VIP] 🟨</b> ao liberar qualquer galeria e acompanhar as atualizações diárias de vídeos sem censura.
+        </div>
+        <div class="feed-footer">
+          <button class="auth-btn" onclick="alternarAba('planos', document.getElementById('tab-btn-planos'))">Ver Galerias VIP</button>
+          <button class="auth-btn" onclick="alternarAba('chat', document.getElementById('tab-btn-chat'))">Participar do Chat</button>
         </div>
       </div>
 
-      <!-- 5. NOVO VIP CORNO / HOTWIFE (Substituindo o antigo Hentai) -->
-      <div class="card card-promo-dupla" id="card-corno" style="border-color: #ef4444;">
-        <div class="card-header" style="background: linear-gradient(180deg, rgba(239, 68, 68, 0.25) 0%, #131a24 100%);">
-          <h3>🐂 CORNOS, CUCKOLD & HOTWIFE 💋</h3>
-          <div class="card-badges">
-            <span class="plan-badge" style="background: rgba(239, 68, 68, 0.2); color: #f87171; border-color: rgba(239, 68, 68, 0.5);">NOVO VIP EXCLUSIVO</span>
-            <span class="status-badge bloqueado" id="badge-corno">🔒 Bloqueado</span>
+      <div class="feed-card">
+        <div class="feed-header">
+          <div class="feed-author">
+            <div class="feed-avatar" style="background: linear-gradient(135deg, #eab308, #ca8a04); color: #000;">NEW</div>
+            <div>
+              <div style="font-size: 14px; font-weight: 800; color: #fff;">Novo Acervo: Cornos, Cuckold & Hotwife 💋</div>
+              <div style="font-size: 11px; color: var(--text-sub);">Atualização Recente</div>
+            </div>
           </div>
         </div>
-
-<div class="card-body">
-          <div class="preview-carousel-wrapper">
-            <div class="carousel-hint">
-              <span>🎬 PRÉVIAS CORNO & HOTWIFE</span>
-              <span>Deslize para o lado ➔</span>
-            </div>
-            <div class="preview-carousel">
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/1CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/2CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/3CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/4CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/5CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-              <div class="video-item">
-                <video controls preload="metadata" playsinline loop muted>
-                  <source src="videos/6CORNO.MP4" type="video/mp4">
-                </video>
-                <button class="btn-fullscreen-overlay" onclick="toggleFullscreen(this)">⛶ Tela Cheia</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="vip-description">
-            <p>O clube mais procurado de fetiches, hotwife, cuckold e flagras de esposas compartilhadas:</p>
-            <ul class="benefits-list">
-              <li><span class="check">✓</span> <b>Acesso VIP Completo (30 Dias)</b></li>
-              <li><span class="check">✓</span> Conteúdos de cuckold, hotwife e fetiches de cornos</li>
-              <li><span class="check">✓</span> Flagras, compartilhamentos e humilhações sem censura</li>
-              <li><span class="check">✓</span> novos casais e Amadores sendo compartilhado</li>
-              <li><span class="check">✓</span> Casal Jovens Comendo Geral</li>
-              <li><span class="check">✓</span> Amadores Vazados Casal Corno</li>
-            </ul>
-          </div>
-
-          <div class="combo-price-box">
-            <span class="combo-price-de">De R$ 24,65</span>
-            <span class="combo-price-por">Por R$ 10,65</span>
-            <span class="combo-badge-discount">LANÇAMENTO</span>
-          </div>
-
-          <div class="plan-actions" id="actions-corno">
-            <button id="buy-corno" class="btn-buy" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #fff;" onclick="iniciarCompra('corno')">
-              🐂 LIBERAR CORNO & HOTWIFE (R$ 10,65)
-            </button>
-            <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="btn-paypal" id="paypal-corno">
-              🌐Buy with PayPal (Telegram Support)
-            </a>
-          </div>
-
-          <a href="corno.html" id="access-corno" class="btn-access" style="display:none;">ENTRAR NA GALERIA CORNO & HOTWIFE</a>
-          <div class="texto-seguranca">🔒 Aceitamos Cartão e Pix • Liberação Automática • Pagamento 100% Discreto</div>
+        <div class="feed-body">
+          Acabamos de liberar a nova galeria <b>Cornos, Cuckold & Hotwife</b> com preço promocional de lançamento por apenas <b>R$ 10,65</b>! Liberação automática na hora pelo Pix ou Cartão.
+        </div>
+        <div class="feed-footer">
+          <button class="btn-buy" style="padding: 12px 18px; font-size: 13px;" onclick="alternarAba('planos', document.getElementById('tab-btn-planos')); setTimeout(() => document.getElementById('card-corno').scrollIntoView(), 100);">🐂 Conferir Galeria Corno & Hotwife</button>
         </div>
       </div>
+    </div> <!-- FIM ABA 2 -->
 
-    </div>
-
-    <!-- CHAT -->
-    <div style="
-      background: var(--card-bg);
-      border: 1px solid var(--border-neon);
-      border-radius: 22px;
-      padding: 20px;
-      margin-top: 36px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-    ">
+    <!-- ========================================================= -->
+    <!-- ABA 3: CHAT DOS MEMBROS (SEU CHAT ORIGINAL COMPLETO)      -->
+    <!-- ========================================================= -->
+    <div id="sec-chat" class="tab-section">
       <div style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--border-neon);
+        background: var(--card-bg);
+        border: 1px solid var(--border-neon);
+        border-radius: 22px;
+        padding: 20px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
       ">
-        <h3 style="font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; margin: 0;">
-          💬 Chat dos Membros 🟡
-        </h3>
-        <div style="display: flex; gap: 8px;">
-          <button id="btn-painel-adm" onclick="abrirModalAdmin()" style="
-            display: none;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: #fff;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-          ">Painel ADM ⚙️</button>
-          <button onclick="alterarNomeChat()" style="
-            background: rgba(234, 179, 8, 0.10);
-            color: #facc15;
-            border: 1px solid var(--border-neon);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 11px;
-            cursor: pointer;
-          ">Mudar Apelido</button>
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 14px;
+          padding-bottom: 12px;
+          border-bottom: 1px solid var(--border-neon);
+        ">
+          <h3 style="font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; margin: 0;">
+            💬 Chat dos Membros 🟡
+          </h3>
+          <div style="display: flex; gap: 8px;">
+            <button id="btn-painel-adm" onclick="abrirModalAdmin()" style="
+              display: none;
+              background: linear-gradient(135deg, #ef4444, #dc2626);
+              color: #fff;
+              border: none;
+              padding: 6px 14px;
+              border-radius: 8px;
+              font-size: 11px;
+              font-weight: bold;
+              cursor: pointer;
+            ">Painel ADM ⚙️</button>
+            <button onclick="alterarNomeChat()" style="
+              background: rgba(234, 179, 8, 0.10);
+              color: #facc15;
+              border: 1px solid var(--border-neon);
+              padding: 6px 14px;
+              border-radius: 8px;
+              font-size: 11px;
+              cursor: pointer;
+            ">Mudar Apelido</button>
+          </div>
         </div>
-      </div>
 
-      <div id="chat-mensagens" style="
-        height: 260px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding-right: 6px;
-        margin-bottom: 14px;
-      ">
-        <div style="font-size: 12px; color: var(--text-sub); text-align: center; margin-top: 20px;">
-          Carregando mensagens do bate-papo...
+        <div id="chat-mensagens" style="
+          height: 360px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding-right: 6px;
+          margin-bottom: 14px;
+        ">
+          <div style="font-size: 12px; color: var(--text-sub); text-align: center; margin-top: 20px;">
+            Carregando mensagens do bate-papo...
+          </div>
         </div>
-      </div>
 
-      <form id="form-chat-envio" onsubmit="event.preventDefault(); enviarMensagemChat();" autocomplete="off" style="display: flex; gap: 8px;">
-        <input type="password" style="display:none;" tabindex="-1">
-        <input
-          type="text"
-          id="chat-input-texto"
-          name="chat_msg_input_no_autofill_val"
-          autocomplete="off"
-          autocorrect="off"
-          capitalize="off"
-          spellcheck="false"
-          placeholder="Digite sua mensagem no chat (máx. 150 caracteres)..."
-          maxlength="150"
-          style="
-            flex: 1;
-            background: #060910;
-            border: 1px solid var(--border-neon);
+        <form id="form-chat-envio" onsubmit="event.preventDefault(); enviarMensagemChat();" autocomplete="off" style="display: flex; gap: 8px;">
+          <input type="password" style="display:none;" tabindex="-1">
+          <input
+            type="text"
+            id="chat-input-texto"
+            name="chat_msg_input_no_autofill_val"
+            autocomplete="off"
+            autocorrect="off"
+            capitalize="off"
+            spellcheck="false"
+            placeholder="Digite sua mensagem no chat (máx. 150 caracteres)..."
+            maxlength="150"
+            style="
+              flex: 1;
+              background: #060910;
+              border: 1px solid var(--border-neon);
+              border-radius: 12px;
+              padding: 12px;
+              color: #fff;
+              font-size: 13px;
+            "
+          />
+          <button type="submit" class="btn-buy" style="
+            width: auto;
+            padding: 0 22px;
             border-radius: 12px;
-            padding: 12px;
-            color: #fff;
             font-size: 13px;
-          "
-        />
-        <button type="submit" class="btn-buy" style="
-          width: auto;
-          padding: 0 22px;
-          border-radius: 12px;
-          font-size: 13px;
-        ">Enviar</button>
-      </form>
-    </div>
-
-    <!-- REVIEWS -->
-    <div class="reviews-section">
-      <div class="reviews-title">💬 O que dizem nossos membros VIP</div>
-      <div class="reviews-grid">
-        <div class="review-item">
-          <div class="review-header">
-            <span class="review-user">M***o S.</span>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <div class="review-text">Comprei o acesso e liberou na hora pelo Pix. Conteúdo de primeiríssima qualidade!</div>
-        </div>
-        <div class="review-item">
-          <div class="review-header">
-            <span class="review-user">R***al</span>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <div class="review-text">Plataforma excelente, vídeos rodam direto no site sem travamentos. Recomendo demais!</div>
-        </div>
+          ">Enviar</button>
+        </form>
       </div>
-    </div>
-
-    <!-- SEÇÃO DE PERGUNTAS FREQUENTES (FAQ) -->
-    <div class="faq-section" id="faq-section">
-      <div class="faq-title">❓ Perguntas Frequentes (FAQ)</div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <div class="faq-q">Os vídeos são em grupos de Telegram?</div>
-          <div class="faq-a">Não! Todo o conteúdo é assistido diretamente aqui no site através de um player de alta velocidade, sem travamentos e sem precisar entrar em grupos.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Como é feito o acesso após o pagamento?</div>
-          <div class="faq-a">A liberação é totalmente automática logo após a confirmação do pagamento. O acesso é vinculado diretamente à sua conta cadastrada no site.</div>
-        </div>
-      </div>
-    </div>
+    </div> <!-- FIM ABA 3 -->
 
   </main>
 
@@ -1676,7 +1838,7 @@
     
     <div class="footer-container">
       <div class="footer-copy">
-        © 2026 Portal VIP Oficial. Todos os direitos reservados.
+        © 2026 Comunidade & Portal VIP Oficial. Todos os direitos reservados.
       </div>
       <div class="footer-disclaimer">
         <b>Aviso Legal:</b> Este site não hospeda nem armazena nenhum arquivo de vídeo em seus próprios servidores. Todo o conteúdo exibido é incorporado através de players de terceiros cadastrados no sistema. Dúvidas ou suporte? Fale conosco via Telegram: <a href="https://t.me/ksuporte?text=Hello%20I%20%20need%20Paypal%20support%20site" target="_blank" class="footer-link">@ksuporte</a>.
@@ -1691,7 +1853,7 @@
       <p class="subtitle" id="modal-subtitle">Digite seu e-mail para vincular seu acesso VIP automaticamente após o pagamento.</p>
       <input type="email" id="auth-email" placeholder="Seu E-mail principal" />
       <input type="password" id="auth-pass" placeholder="Sua Senha (mín. 6 caracteres)" />
-      <button class="btn-buy" style="width:100%; margin-top:14px; padding: 14px;" onclick="fazerAuth()">CONTINUAR PARA PAGAMENTO</button>
+      <button class="btn-buy" style="width:100%; margin-top:14px; padding: 14px;" onclick="fazerAuth()">CONTINUAR</button>
       <button onclick="fecharModal()" style="background:none; border:none; color:var(--text-sub); margin-top:15px; cursor:pointer; font-size: 13px;">Cancelar</button>
     </div>
   </div>
@@ -1788,7 +1950,24 @@
 
   <script src="links-cam.js"></script>
 
-  <!-- SCRIPT DE TELA CHEIA (COM CORREÇÃO DE SCROLL AO SAIR DA TELA CHEIA) -->
+  <!-- CONTROLE DE ABAS DA COMUNIDADE -->
+  <script>
+    function alternarAba(abaNome, btnElement) {
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.community-tab').forEach(btn => btn.classList.remove('active'));
+
+      const targetSec = document.getElementById(`sec-${abaNome}`);
+      if (targetSec) targetSec.classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
+
+      if (abaNome === 'chat') {
+        const box = document.getElementById('chat-mensagens');
+        if (box) box.scrollTop = box.scrollHeight;
+      }
+    }
+  </script>
+
+  <!-- SCRIPT DE TELA CHEIA -->
   <script>
     let scrollPosicaoAntesFullscreen = 0;
 
@@ -1851,7 +2030,7 @@
   <script>
     (function iniciarNotificacoesCompras() {
       const nomes = ['J***o', 'M***us', 'C***ber', 'L***as', 'R***ro', 'G***el', 'F***pe', 'B***no'];
-      const planos = ['Corno & Hotwife VIP (R$ 19,90)', 'Famosinhas VIP', 'PROMOÇÃO DUPLA', 'Plano Amador Premium'];
+      const planos = ['Corno & Hotwife VIP (R$ 10,65)', 'Famosinhas VIP', 'PROMOÇÃO DUPLA', 'Plano Amador Premium'];
 
       const toast = document.getElementById('socialProofToast');
       const elName = document.getElementById('socialProofName');
@@ -1879,6 +2058,7 @@
     })();
   </script>
 
+  <!-- SCRIPT POP-UP +18 -->
   <script>
     (function() {
       const popup = document.getElementById("popup-idade");
@@ -1900,7 +2080,7 @@
     })();
   </script>
 
-  <!-- SUPABASE + CHAT + PERFIL + MODERAÇÃO -->
+  <!-- SUPABASE + CHAT + PERFIL + MODERAÇÃO (100% ORIGINAL INTACTO) -->
   <script>
     const SUPABASE_URL = 'https://xjvkyofktqojuyequuxe.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable__w-crANhzjiYKJuh2AX39w_Kz1-Rf74';
@@ -1921,7 +2101,6 @@
 
     let palavrasProibidasBanco = [];
 
-    // Mapeamento dos Checkouts (Incluso o novo link de corno, ajuste a URL de pagamento conforme necessário)
     const CHECKOUTS = {
       corno: "https://link.syncpayments.com.br/GSqMNn",
       famosinhas: "https://link.syncpayments.com.br/YqNmqp",
